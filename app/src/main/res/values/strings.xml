@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Lambor Control</string>
+    <string name="todo">TODO</string>
+    <string name="button">EXIT</string>
+</resources>
