@@ -54,7 +54,7 @@ public class Second extends AppCompatActivity {
         exid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),Second.class);
+                Intent intent = new Intent(getApplicationContext(),First.class);
                 startActivity(intent);
 
                 // Tao su kien ket thuc app

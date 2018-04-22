@@ -2,4 +2,6 @@
     <string name="app_name">Lambor Control</string>
     <string name="todo">TODO</string>
     <string name="button">EXIT</string>
+    <string name="one">Số 1</string>
+    <string name="two">Số 2</string>
 </resources>

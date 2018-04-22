@@ -20,8 +20,7 @@
         android:layout_width="85dp"
         android:layout_height="85dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="130dp"
+        android:layout_toStartOf="@+id/btnRight"
         android:contentDescription="@string/todo"
         app:srcCompat="@drawable/left" />
 
@@ -29,18 +28,18 @@
         android:id="@+id/btnRight"
         android:layout_width="85dp"
         android:layout_height="85dp"
-        android:layout_alignTop="@+id/btnLeft"
-        android:layout_marginStart="-130dp"
-        android:layout_toEndOf="@+id/btnLeft"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="15dp"
         android:contentDescription="@string/todo"
         app:srcCompat="@drawable/right" />
 
     <ImageView
         android:id="@+id/btnPhanh"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="95dp"
+        android:layout_height="95dp"
         android:layout_alignParentBottom="true"
-        android:layout_toEndOf="@+id/btnRun"
+        android:layout_alignStart="@+id/btnRunUp"
         android:contentDescription="@string/todo"
         app:srcCompat="@drawable/down" />
 
@@ -54,35 +53,65 @@
         app:srcCompat="@drawable/xe" />
 
     <ImageView
-        android:id="@+id/btnRun"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:id="@+id/btnRunUp"
+        android:layout_width="95dp"
+        android:layout_height="95dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="43dp"
+        android:layout_marginBottom="94dp"
+        android:layout_marginStart="56dp"
         android:contentDescription="@string/todo"
         app:srcCompat="@drawable/up" />
 
     <ImageView
-        android:id="@+id/btnAttack"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_alignParentBottom="true"
+        android:id="@+id/btnBurst"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         android:layout_alignParentEnd="true"
-        android:layout_marginBottom="110dp"
-        android:layout_marginEnd="14dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="54dp"
+        android:layout_marginTop="13dp"
         android:contentDescription="@string/todo"
         app:srcCompat="@drawable/sword" />
 
     <ImageView
-        android:id="@+id/btnLed"
-        android:layout_width="85dp"
-        android:layout_height="85dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/btnAttack"
-        android:layout_marginTop="32dp"
+        android:id="@+id/btnNang"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
         android:contentDescription="@string/todo"
-        app:srcCompat="@drawable/ledon" />
+        app:srcCompat="@drawable/nang" />
+
+    <ImageView
+        android:id="@+id/btnOne"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignStart="@+id/btnLeft"
+        android:layout_alignTop="@+id/btnRunUp"
+        android:contentDescription="@string/todo"
+        app:srcCompat="@drawable/one" />
+
+    <ImageView
+        android:id="@+id/btnTwo"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignTop="@+id/btnRunUp"
+        android:layout_toEndOf="@+id/btnLeft"
+        android:contentDescription="@string/todo"
+        app:srcCompat="@drawable/two" />
+
+    <TextView
+        android:id="@+id/txtvSo"
+        android:layout_width="71dp"
+        android:layout_height="39dp"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="@string/one"
+        android:textColor="#ffffff"
+        android:textSize="22sp" />
 
 
 </RelativeLayout>

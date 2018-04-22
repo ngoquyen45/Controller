@@ -1,6 +1,5 @@
 package com.teme.hieu.temecontrol;
 
-import android.app.Notification;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
@@ -14,7 +13,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -22,13 +21,15 @@ import java.util.UUID;
 
 public class Main extends AppCompatActivity {
     Button exid;
-    ImageView turnLeft,turnRight,Phanh,xe,btnRun,btnLed,btnAttack;
+    TextView txtvSo;
+    ImageView turnLeft,turnRight,xe,btnRunUp,btnPhanh,btnBurst,btnOne,btnTwo,btnNang;
     Animation animLeft;
     Animation animRight;
     String address = null;
     BluetoothAdapter myBlue = null;
     BluetoothSocket mySocket = null;
     private boolean isBTconnected = false;
+    public boolean nang = false;
     static final UUID myUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,14 +40,17 @@ public class Main extends AppCompatActivity {
         address = nhan.getStringExtra(Second.EXTRA_ADDRESS);
         connectBT();
         //Anh xa
-
+        txtvSo = findViewById(R.id.txtvSo);
         xe = findViewById(R.id.car);
         turnLeft = findViewById(R.id.btnLeft);
         turnRight = findViewById(R.id.btnRight);
-        btnRun = findViewById(R.id.btnRun);
-        btnLed = findViewById(R.id.btnLed);
-        btnAttack = findViewById(R.id.btnAttack);
-        Phanh = findViewById(R.id.btnPhanh);
+        btnRunUp = findViewById(R.id.btnRunUp);
+        btnPhanh = findViewById(R.id.btnPhanh);
+        btnBurst = findViewById(R.id.btnBurst);
+        btnPhanh = findViewById(R.id.btnPhanh);
+        btnNang = findViewById(R.id.btnNang);
+        btnOne = findViewById(R.id.btnOne);
+        btnTwo = findViewById(R.id.btnTwo);
 
         animLeft = AnimationUtils.loadAnimation(Main.this,R.anim.roteeleft);
         animRight = AnimationUtils.loadAnimation(Main.this, R.anim.rotee);
@@ -54,7 +58,7 @@ public class Main extends AppCompatActivity {
         exid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),Main.class);
+                Intent intent = new Intent(getApplicationContext(),First.class);
                 startActivity(intent);
 
                 // Tao su kien ket thuc app
@@ -64,7 +68,9 @@ public class Main extends AppCompatActivity {
                 finish();
             }
         });
-
+        btnNang.setOnClickListener(myClick);
+        btnOne.setOnClickListener(myClick);
+        btnTwo.setOnClickListener(myClick);
         turnLeft.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -72,15 +78,15 @@ public class Main extends AppCompatActivity {
                 {
                     try{
                     xe.startAnimation(animLeft);
-                    mySocket.getOutputStream().write("TF".getBytes());}
+                    mySocket.getOutputStream().write("LEFT".getBytes());}
                     catch (IOException e)
                     { Toast.makeText(getApplicationContext(),"Lỗi",Toast.LENGTH_SHORT).show();}
-
+                     return true;
                 }
                 if (event.getAction() == MotionEvent.ACTION_UP)
                 {
                     try{
-                        mySocket.getOutputStream().write("END".getBytes());}
+                        mySocket.getOutputStream().write("ENDL".getBytes());}
                     catch (IOException e)
                     { Toast.makeText(getApplicationContext(),"Lỗi",Toast.LENGTH_SHORT).show();}
                 }
@@ -94,22 +100,22 @@ public class Main extends AppCompatActivity {
                 {
                     try{
                         xe.startAnimation(animRight);
-                        mySocket.getOutputStream().write("TR".getBytes());}
+                        mySocket.getOutputStream().write("RIGHT".getBytes());}
                     catch (IOException e)
                     { Toast.makeText(getApplicationContext(),"Lỗi",Toast.LENGTH_SHORT).show();}
-
+                     return true;
                 }
                 if (event.getAction() == MotionEvent.ACTION_UP)
                 {
                     try{
-                        mySocket.getOutputStream().write("END".getBytes());}
+                        mySocket.getOutputStream().write("ENDR".getBytes());}
                     catch (IOException e)
                     { Toast.makeText(getApplicationContext(),"Lỗi",Toast.LENGTH_SHORT).show();}
                 }
                 return false;
             }
         });
-        btnRun.setOnTouchListener(new View.OnTouchListener() {
+        btnRunUp.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN)
@@ -123,16 +129,107 @@ public class Main extends AppCompatActivity {
                 if (event.getAction() == MotionEvent.ACTION_UP)
                 {
                     try{
-                        mySocket.getOutputStream().write("STOP".getBytes());}
+                        mySocket.getOutputStream().write("ENDU".getBytes());}
                     catch (IOException e)
                     { Toast.makeText(getApplicationContext(),"Lỗi",Toast.LENGTH_SHORT).show();}
                 }
                 return false;
             }
         });
-
-
+         btnPhanh.setOnTouchListener(new View.OnTouchListener() {
+             @Override
+             public boolean onTouch(View v, MotionEvent event) {
+                 if (event.getAction() == MotionEvent.ACTION_DOWN)
+                 {
+                     try{
+                         mySocket.getOutputStream().write("PHANH".getBytes());}
+                     catch (IOException e)
+                     { Toast.makeText(getApplicationContext(),"Lỗi",Toast.LENGTH_SHORT).show();}
+                     return true;
+                 }
+                 if (event.getAction() == MotionEvent.ACTION_UP)
+                 {
+                     try{
+                         mySocket.getOutputStream().write("ENDP".getBytes());}
+                     catch (IOException e)
+                     { Toast.makeText(getApplicationContext(),"Lỗi",Toast.LENGTH_SHORT).show();}
+                 }
+                 return false;
+             }
+         });
+         btnBurst.setOnTouchListener(new View.OnTouchListener() {
+             @Override
+             public boolean onTouch(View v, MotionEvent event) {
+                 if (event.getAction() == MotionEvent.ACTION_DOWN)
+                 {
+                     try{
+                         mySocket.getOutputStream().write("BURST".getBytes());}
+                     catch (IOException e)
+                     { Toast.makeText(getApplicationContext(),"Lỗi",Toast.LENGTH_SHORT).show();}
+                     return true;
+                 }
+                 if (event.getAction() == MotionEvent.ACTION_UP)
+                 {
+                     try{
+                         mySocket.getOutputStream().write("ENDB".getBytes());}
+                     catch (IOException e)
+                     { Toast.makeText(getApplicationContext(),"Lỗi",Toast.LENGTH_SHORT).show();}
+                 }
+                 return false;
+             }
+         });
     }
+    View.OnClickListener myClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            switch (v.getId())
+            {
+                case R.id.btnNang:
+                {
+                    if(!nang){
+                        try{
+                            mySocket.getOutputStream().write("NANG".getBytes());
+                            nang = true;
+                            btnNang.setImageResource(R.drawable.upped);
+                        }
+                        catch (IOException e)
+                        { Toast.makeText(getApplicationContext(),"Lỗi",Toast.LENGTH_SHORT).show();}
+                    }
+                    else
+                    {
+                        try{
+                            mySocket.getOutputStream().write("HA".getBytes());
+                            nang = false;
+                            btnNang.setImageResource(R.drawable.nang);
+                        }
+                        catch (IOException e)
+                        { Toast.makeText(getApplicationContext(),"Lỗi",Toast.LENGTH_SHORT).show();}
+                    }
+                    break;
+                }
+                case R.id.btnOne:
+                {
+                    try{
+                        mySocket.getOutputStream().write("ONE".getBytes());
+                        txtvSo.setText(R.string.one);
+                    }
+                    catch (IOException e)
+                    { Toast.makeText(getApplicationContext(),"Lỗi",Toast.LENGTH_SHORT).show();}
+                    break;
+                }
+                case R.id.btnTwo:
+                {
+                    try{
+                        mySocket.getOutputStream().write("TWO".getBytes());
+                        txtvSo.setText(R.string.two);
+                    }
+                    catch (IOException e)
+                    { Toast.makeText(getApplicationContext(),"Lỗi",Toast.LENGTH_SHORT).show();}
+                    break;
+                }
+            }
+        }
+    };
     public void connectBT ()
     {
         boolean Connected = true;

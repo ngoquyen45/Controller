@@ -14,5 +14,5 @@
         android:layout_centerInParent="true"
         android:contentDescription="@string/todo"
         android:visibility="invisible"
-        app:srcCompat="@drawable/car" />
+        app:srcCompat="@drawable/lambonew" />
 </RelativeLayout>
