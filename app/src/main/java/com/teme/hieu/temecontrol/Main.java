@@ -22,7 +22,7 @@ import java.util.UUID;
 public class Main extends AppCompatActivity {
     Button exid;
     TextView txtvSo;
-    ImageView turnLeft,turnRight,xe,btnRunUp,btnPhanh,btnBurst,btnOne,btnTwo,btnNang;
+    ImageView turnLeft,turnRight,xe,btnRunUp,btnPhanh,btnBurst,btnOne,btnTwo,btnNang,btnLED;
     Animation animLeft;
     Animation animRight;
     String address = null;
@@ -30,6 +30,7 @@ public class Main extends AppCompatActivity {
     BluetoothSocket mySocket = null;
     private boolean isBTconnected = false;
     public boolean nang = false;
+    public boolean led = false;
     static final UUID myUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +41,7 @@ public class Main extends AppCompatActivity {
         address = nhan.getStringExtra(Second.EXTRA_ADDRESS);
         connectBT();
         //Anh xa
+        btnLED = findViewById(R.id.btnLED);
         txtvSo = findViewById(R.id.txtvSo);
         xe = findViewById(R.id.car);
         turnLeft = findViewById(R.id.btnLeft);
@@ -71,6 +73,7 @@ public class Main extends AppCompatActivity {
         btnNang.setOnClickListener(myClick);
         btnOne.setOnClickListener(myClick);
         btnTwo.setOnClickListener(myClick);
+        btnLED.setOnClickListener(myClick);
         turnLeft.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -184,6 +187,30 @@ public class Main extends AppCompatActivity {
         public void onClick(View v) {
             switch (v.getId())
             {
+                case R.id.btnLED:
+                {
+                    if(!led){
+                        try{
+                            mySocket.getOutputStream().write("LEDO".getBytes());
+                            led = true;
+                            btnNang.setImageResource(R.drawable.ledoff);
+                        }
+                        catch (IOException e)
+                        { Toast.makeText(getApplicationContext(),"Lỗi",Toast.LENGTH_SHORT).show();}
+                    }
+                    else
+                    {
+                        try{
+                            mySocket.getOutputStream().write("LEDF".getBytes());
+                            led = false;
+                            btnNang.setImageResource(R.drawable.ledon);
+                        }
+                        catch (IOException e)
+                        { Toast.makeText(getApplicationContext(),"Lỗi",Toast.LENGTH_SHORT).show();}
+                    }
+                    break;
+                }
+
                 case R.id.btnNang:
                 {
                     if(!nang){
